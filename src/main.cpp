@@ -1,20 +1,25 @@
+// NOM DU PROGRAMME : SondeTemperature_PROTOTYPE
+// REALISATION INFORMATIQUE : Mathieu Lepage
+// DATE DE CREATION : 2020/10/16
+// OBJET : Programme test permettant d'afficher les températures captées par la sonde
+
 #include <Arduino.h>
 #include <OneWire.h>
 #include <DallasTemperature.h>
  
-//la pin GPIO de connexion
+// La pin GPIO de connexion
 const int oneWireBus = 4;
  
-//initialisation d'une instance onewire
+// Initialisation d'une instance onewire
 OneWire oneWire(oneWireBus);
  
-//passer la référence au sensor Dallas Temperature
+// Passer la référence au sensor Dallas Temperature
 DallasTemperature sensors(&oneWire);
  
 void setup()
 {
 Serial.begin(9600);
-//start le sensor
+// Start le sensor
 sensors.begin();
 }
 void loop()
@@ -22,9 +27,11 @@ void loop()
   // On appelle la requète de température sensors.requestTemperatures()
   sensors.requestTemperatures(); 
   Serial.print("Celsius temperature: ");
-  // Why "byIndex"? You can have more than one IC on the same bus. 0 refers to the first IC on the wire
+  // Le "byIndex" permet d'avoir plus qu'une IC sur le même bus. 0 réfère au premier IC sur le wire
+  // Ici on record la température en celcius
   Serial.print(sensors.getTempCByIndex(0)); 
   Serial.print(" - Fahrenheit temperature: ");
+  // Ici on record la température en fahrenheit
   Serial.println(sensors.getTempFByIndex(0));
   delay(1000);
 }
